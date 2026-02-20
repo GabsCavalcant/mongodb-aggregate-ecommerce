@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 
 /**
  *
@@ -33,7 +33,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
-    
+
     @Autowired
     private UserService service;
 
@@ -41,36 +41,47 @@ public class UserResource {
     public ResponseEntity<List<UserDto>> findAll() {
         List<User> list = service.findAll();
         List<UserDto> listaDto = list.stream().map(x -> new UserDto(x)).collect(Collectors.toList());
-        
+
         return ResponseEntity.ok().body(listaDto);
     }
+
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDto> findAll(@PathVariable String id ) {
-        
+    public ResponseEntity<UserDto> findAll(@PathVariable String id) {
+
         User user = service.findById(id);
-        
+
         return ResponseEntity.ok().body(new UserDto(user));
     }
-    
+
     @PostMapping()
-    public ResponseEntity<Void> insert(@RequestBody UserDto userDto ) {
-        
+    public ResponseEntity<Void> insert(@RequestBody UserDto userDto) {
+
         User user = service.fromDto(userDto);
-        
+
         user = service.insert(user);
-        
+
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(user.getId()).toUri();
-        
+
         return ResponseEntity.created(uri).build();
     }
+
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id) {
-        
+
         service.delete(id);
-        
+
         return ResponseEntity.noContent().build();
     }
-    
-    
-    
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Void> update(@RequestBody UserDto userDto, @PathVariable String id) {
+
+        User obj = service.fromDto(userDto);
+        obj.setId(id);
+
+        obj = service.update(obj);
+
+        return ResponseEntity.noContent().build();
+    }
+
 }
