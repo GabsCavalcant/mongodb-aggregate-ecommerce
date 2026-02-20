@@ -5,6 +5,7 @@
 package com.gabrielCant.ecommerce_mongo.service;
 
 import com.gabrielCant.ecommerce_mongo.domain.User;
+import com.gabrielCant.ecommerce_mongo.dto.UserDto;
 import com.gabrielCant.ecommerce_mongo.repository.UserRepository;
 import com.gabrielCant.ecommerce_mongo.service.exception.ObjectNotFound;
 import java.util.List;
@@ -32,5 +33,13 @@ public class UserService {
         
        return obj.orElseThrow(() -> new ObjectNotFound("Object not found / Objeto não encontrado."));
     
-}
+    }
+    
+    public User insert(User obj){
+        return repo.insert(obj);
+    }
+    
+    public User fromDto(UserDto userDto){
+        return new User(userDto.getId(), userDto.getName(), userDto.getMail());
+    }
 }
