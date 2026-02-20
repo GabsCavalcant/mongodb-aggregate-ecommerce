@@ -1,12 +1,13 @@
-package com.gabrielCant.ecommerce_mongo.domain;
+package com.gabrielCant.ecommerce_mongo.dto;
 
+import com.gabrielCant.ecommerce_mongo.domain.User;
 import java.io.Serializable;
-import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "user")
-public class User implements Serializable {
+
+public class UserDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -14,12 +15,12 @@ public class User implements Serializable {
     private String name;
     private String mail;
 
-    public User() {}
+    public UserDto() {}
 
-    public User(String id, String name, String mail) {
-        this.id = id;
-        this.name = name;
-        this.mail = mail;
+    public UserDto(User user) {
+        id = user.getId();
+        name = user.getName();
+        mail = user.getMail();
     }
 
     public String getId() {
@@ -47,18 +48,4 @@ public class User implements Serializable {
     }
 
   
-    
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

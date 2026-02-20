@@ -5,10 +5,12 @@
 package com.gabrielCant.ecommerce_mongo.resource;
 
 import com.gabrielCant.ecommerce_mongo.domain.User;
+import com.gabrielCant.ecommerce_mongo.dto.UserDto;
 import com.gabrielCant.ecommerce_mongo.service.UserService;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,9 +31,11 @@ public class UserResource {
     @Autowired
     private UserService service;
 
-    @GetMapping // Use apenas @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    @GetMapping // @GetMapping
+    public ResponseEntity<List<UserDto>> findAll() {
         List<User> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDto> listaDto = list.stream().map(x -> new UserDto(x)).collect(Collectors.toList());
+        
+        return ResponseEntity.ok().body(listaDto);
     }
 }
