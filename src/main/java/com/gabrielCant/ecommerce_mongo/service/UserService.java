@@ -42,4 +42,9 @@ public class UserService {
     public User fromDto(UserDto userDto){
         return new User(userDto.getId(), userDto.getName(), userDto.getMail());
     }
+    
+    public void delete (String id){
+         findById(id);
+         repo.deleteById(id);
+    }
 }
