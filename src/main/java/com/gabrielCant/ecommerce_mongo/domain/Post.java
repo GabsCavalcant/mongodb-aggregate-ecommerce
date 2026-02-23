@@ -4,6 +4,7 @@
  */
 package com.gabrielCant.ecommerce_mongo.domain;
 
+import com.gabrielCant.ecommerce_mongo.dto.AuthorDto;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -25,13 +26,13 @@ private static final long serialVersionUID = 1L;
     private Date date;
     private String tittle;
     private String body;
-    private User autor;
+    private AuthorDto autor;
     
     public Post(){
         
     }
 
-    public Post(String id, Date date, String tittle, String body, User autor) {
+    public Post(String id, Date date, String tittle, String body, AuthorDto autor) {
         this.id = id;
         this.date = date;
         this.tittle = tittle;
@@ -43,11 +44,11 @@ private static final long serialVersionUID = 1L;
         return id;
     }
 
-    public User getAutor() {
+    public AuthorDto getAutor() {
         return autor;
     }
 
-    public void setAutor(User autor) {
+    public void setAutor(AuthorDto autor) {
         this.autor = autor;
     }
     
