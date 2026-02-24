@@ -4,6 +4,7 @@
  */
 package com.gabrielCant.ecommerce_mongo.resource;
 
+import com.gabrielCant.ecommerce_mongo.domain.Post;
 import com.gabrielCant.ecommerce_mongo.domain.User;
 import com.gabrielCant.ecommerce_mongo.dto.UserDto;
 import com.gabrielCant.ecommerce_mongo.service.UserService;
@@ -46,11 +47,18 @@ public class UserResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDto> findAll(@PathVariable String id) {
+    public ResponseEntity<UserDto> findById(@PathVariable String id) {
 
         User user = service.findById(id);
 
         return ResponseEntity.ok().body(new UserDto(user));
+    }
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+
+        User user = service.findById(id);
+
+        return ResponseEntity.ok().body(user.getPost());
     }
 
     @PostMapping()
