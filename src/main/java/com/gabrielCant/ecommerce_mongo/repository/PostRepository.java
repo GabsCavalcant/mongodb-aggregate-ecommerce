@@ -5,6 +5,7 @@
 package com.gabrielCant.ecommerce_mongo.repository;
 
 import com.gabrielCant.ecommerce_mongo.domain.Post;
+import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.cdi.MongoRepositoryBean;
 import org.springframework.stereotype.Repository;
@@ -15,5 +16,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository 
 public interface PostRepository  extends MongoRepository<Post, String>{
+    
+     List<Post> findByTitleContainingIgnoreCase(String txt);
+        
+   
     
 }

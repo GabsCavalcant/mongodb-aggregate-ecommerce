@@ -28,7 +28,7 @@ private static final long serialVersionUID = 1L;
     @Id
     private String id;
     private Date date;
-    private String tittle;
+    private String title;
     private String body;
     private AuthorDto autor;
     
@@ -39,10 +39,10 @@ private static final long serialVersionUID = 1L;
         
     }
 
-    public Post(String id, Date date, String tittle, String body, AuthorDto autor) {
+    public Post(String id, Date date, String title, String body, AuthorDto autor) {
         this.id = id;
         this.date = date;
-        this.tittle = tittle;
+        this.title = title;
         this.body = body;
         this.autor = autor;
     }
@@ -82,11 +82,11 @@ private static final long serialVersionUID = 1L;
     }
 
     public String getTittle() {
-        return tittle;
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTittle(String title) {
+        this.title = title;
     }
 
     public String getBody() {

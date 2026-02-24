@@ -7,6 +7,7 @@ package com.gabrielCant.ecommerce_mongo.service;
 import com.gabrielCant.ecommerce_mongo.domain.Post;
 import com.gabrielCant.ecommerce_mongo.repository.PostRepository;
 import com.gabrielCant.ecommerce_mongo.service.exception.ObjectNotFound;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,10 @@ public class PostService {
         Optional<Post> obj = repo.findById(id);
         
         return obj.orElseThrow(() -> new ObjectNotFound("Objeto Não encontrado!"));
+    }
+    
+    public List<Post> findByTittle(String txt){
+        return repo.findByTitleContainingIgnoreCase(txt);
     }
     
 }
