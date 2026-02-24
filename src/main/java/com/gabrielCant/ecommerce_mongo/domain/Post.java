@@ -5,11 +5,15 @@
 package com.gabrielCant.ecommerce_mongo.domain;
 
 import com.gabrielCant.ecommerce_mongo.dto.AuthorDto;
+import com.gabrielCant.ecommerce_mongo.dto.CommentDto;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -28,6 +32,9 @@ private static final long serialVersionUID = 1L;
     private String body;
     private AuthorDto autor;
     
+    
+    private List<CommentDto> comments = new ArrayList();
+    
     public Post(){
         
     }
@@ -40,6 +47,16 @@ private static final long serialVersionUID = 1L;
         this.autor = autor;
     }
 
+    public List<CommentDto> getcomment() {
+        return comments;
+    }
+
+    public void setcomment(List<CommentDto> user) {
+        this.comments = user;
+    }
+    
+    
+    
     public String getId() {
         return id;
     }
