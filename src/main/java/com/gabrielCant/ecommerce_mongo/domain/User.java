@@ -1,8 +1,11 @@
 package com.gabrielCant.ecommerce_mongo.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "user")
@@ -13,7 +16,12 @@ public class User implements Serializable {
     private String id;
     private String name;
     private String mail;
-
+    
+  
+    @DBRef(lazy = true)
+    private List<Post> post = new ArrayList();
+    
+    
     public User() {}
 
     public User(String id, String name, String mail) {
@@ -22,6 +30,14 @@ public class User implements Serializable {
         this.mail = mail;
     }
 
+    public List<Post> getPost() {
+        return post;
+    }
+
+    public void setPost(List<Post> post) {
+        this.post = post;
+    }
+    
     public String getId() {
         return id;
     }
