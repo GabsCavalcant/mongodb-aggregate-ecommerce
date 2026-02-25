@@ -20,23 +20,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *
  * @author gabri
  */
-
 @Document(value = "post")
-public class Post implements Serializable{
-private static final long serialVersionUID = 1L;
-    
+public class Post implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     private String id;
     private Date date;
     private String title;
     private String body;
     private AuthorDto autor;
-    
-    
+
     private List<CommentDto> comments = new ArrayList();
-    
-    public Post(){
-        
+
+    public Post() {
+
     }
 
     public Post(String id, Date date, String title, String body, AuthorDto autor) {
@@ -47,16 +46,16 @@ private static final long serialVersionUID = 1L;
         this.autor = autor;
     }
 
-    public List<CommentDto> getcomment() {
+   
+    public List<CommentDto> getComments() {
         return comments;
     }
 
-    public void setcomment(List<CommentDto> user) {
-        this.comments = user;
+
+    public void setComments(List<CommentDto> comments) {
+        this.comments = comments;
     }
-    
-    
-    
+
     public String getId() {
         return id;
     }
@@ -68,7 +67,7 @@ private static final long serialVersionUID = 1L;
     public void setAutor(AuthorDto autor) {
         this.autor = autor;
     }
-    
+
     public void setId(String id) {
         this.id = id;
     }
@@ -81,11 +80,11 @@ private static final long serialVersionUID = 1L;
         this.date = date;
     }
 
-    public String getTittle() {
+    public String getTitle() {
         return title;
     }
 
-    public void setTittle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
@@ -118,7 +117,5 @@ private static final long serialVersionUID = 1L;
         final Post other = (Post) obj;
         return Objects.equals(this.id, other.id);
     }
-    
-    
-    
+
 }

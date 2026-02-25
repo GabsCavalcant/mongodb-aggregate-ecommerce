@@ -8,6 +8,8 @@ import com.gabrielCant.ecommerce_mongo.domain.Post;
 import com.gabrielCant.ecommerce_mongo.resource.util.URL;
 import com.gabrielCant.ecommerce_mongo.service.PostService;
 import static com.mongodb.client.model.Filters.text;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +48,26 @@ public class PostResource {
         text = URL.decodeParam(text);
         
         List<Post> list = service.findByTittle(text);
+
+        return ResponseEntity.ok().body(list);
+    }
+    @GetMapping(value = "/fullsearch")
+    public ResponseEntity<List<Post>> fullSearch(
+            @RequestParam(value = "text", defaultValue = "") String text,
+                    //Data minima o sistema
+            @RequestParam(value = "minDate", defaultValue = "2000-01-01") String minDate,
+            @RequestParam(value = "max", defaultValue = "") String maxDate) {
+
+        text = URL.decodeParam(text);
+        Date min = URL.convertDate(minDate ,new Date(0L));
+        Date max = URL.convertDate(maxDate ,new Date());
+        
+        System.out.println("=== DEBUG BUSCA ===");
+    System.out.println("Texto: " + text);
+    System.out.println("Data Min: " + min);
+    System.out.println("Data Max: " + max);
+        
+        List<Post> list = service.fullSearch(text,min,max);
 
         return ResponseEntity.ok().body(list);
     }

@@ -7,6 +7,7 @@ package com.gabrielCant.ecommerce_mongo.service;
 import com.gabrielCant.ecommerce_mongo.domain.Post;
 import com.gabrielCant.ecommerce_mongo.repository.PostRepository;
 import com.gabrielCant.ecommerce_mongo.service.exception.ObjectNotFound;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class PostService {
     
     public List<Post> findByTittle(String txt){
         return repo.titlesearch(txt);
+    }
+    
+    public List<Post> fullSearch (String text, Date minDate, Date maxDate){
+        maxDate = new Date(maxDate.getTime() + 24 * 60 * 60 * 1000);
+        return repo.fullSearch(text, minDate, maxDate);
+        
     }
     
 }
